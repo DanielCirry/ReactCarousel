@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default styled.div`
   position: relative;
-  width: 90%;
+  width: calc(100vw - 2px);
   height: calc(100vh - 64px);
   display: flex;
   justify-content: center;

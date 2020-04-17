@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import { colors } from "../Constants/theme";
 
-const Course = props => {
+const Course = (props) => {
   return (
     props.course && (
       <CourseCard>
@@ -39,6 +39,7 @@ export default Course;
 const CourseCard = styled(Card)`
   position: relative;
   flex: 1;
+  cursor: pointer;
   width: 358px;
   display: flex;
   flex-direction: row;

@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import ReactCardCarousel from "react-card-carousel";
 import Course from "../components/Course";
 import courseData, { CourseData } from "../helpers/courseData";
-import { colors } from "../Constants/theme";
 
 type Carousel = {
   next: () => void;
@@ -25,7 +22,7 @@ export default class List extends Component<any, IState> {
   state = {
     courses: [],
     searchString: "",
-    width: window.innerWidth
+    width: window.innerWidth,
   };
 
   constructor(props) {
@@ -48,7 +45,7 @@ export default class List extends Component<any, IState> {
     this.setState({ courses: courseData });
   };
 
-  onSearchInputChange = event => {
+  onSearchInputChange = (event) => {
     if (event.target.value) {
       console.log(event.target.value);
       this.setState({ searchString: event.target.value });
@@ -70,35 +67,23 @@ export default class List extends Component<any, IState> {
         />
         {isMobile && (
           <Grid>
-            {this.state.courses.map(currentCourse => (
+            {this.state.courses.map((currentCourse) => (
               <Course course={currentCourse} />
             ))}
           </Grid>
         )}
         {!isMobile && this.state.courses && (
           <CarouselContainer>
-            <NavigationArrowLeft
-              onClick={() =>
-                //@ts-ignore
-                this.carousel.prev()
-              }
-            />
             <Carousel
-              ref={component => (this.carousel = component)}
+              ref={(component) => (this.carousel = component)}
               spread={"wide"}
               autoplay_speed={2500}
               disable_box_shadow={true}
             >
-              {this.state.courses.map(currentCourse => (
+              {this.state.courses.map((currentCourse) => (
                 <Course course={currentCourse} />
               ))}
             </Carousel>
-            <NavigationArrowRight
-              onClick={() =>
-                //@ts-ignore
-                this.carousel.next()
-              }
-            />
           </CarouselContainer>
         )}
       </Container>
@@ -120,6 +105,8 @@ const Container = styled.div`
 
 const CarouselContainer = styled.div`
   flex: 1;
+  position: relative;
+  align-self: center;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -144,38 +131,4 @@ const Carousel = styled(ReactCardCarousel)`
   font-size: 12px;
   text-transform: uppercase;
   border-radius: 10px;
-`;
-
-const NavigationArrowRight = styled(NavigateNextIcon)`
-  && {
-    z-index: 99;
-    height: 60px;
-    width: 60px;
-    color: ${colors.darkPurple};
-    background: transparent;
-    border-radius: 100%;
-    :hover {
-      background: rgba(0, 0, 0, 0.1);
-      color: ${colors.lightPurple};
-    }
-    transition: all cubic-bezier(1, -0.62, 0.81, 0.77);
-    transition: color 2s, height 2s, transform 2s;
-  }
-`;
-
-const NavigationArrowLeft = styled(NavigateBeforeIcon)`
-  && {
-    z-index: 99;
-    height: 60px;
-    width: 60px;
-    color: ${colors.darkPurple};
-    background: transparent;
-    border-radius: 100%;
-    :hover {
-      background: rgba(0, 0, 0, 0.1);
-      color: ${colors.lightPurple};
-    }
-    transition: all cubic-bezier(1, -0.62, 0.81, 0.77);
-    transition: color 2s, height 2s, transform 2s;
-  }
 `;
